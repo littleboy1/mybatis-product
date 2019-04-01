@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--配置文件是有顺序的-->
+    <properties resource="database.properties"></properties>
+
+
+    <typeAliases>
+        <package name="com.lzq.mybatis.bean"></package>
+    </typeAliases>
+    <!--对当前整体项目的类型转化都进行拦截因为是配置在config下面同时可以在resultMap当中使用针对某一个结果映射》针对是映射规则-->
+    <typeHandlers>
+        <typeHandler handler="com.lzq.mybatis.typehandler.MyTypeHadnler" javaType="Boolean" jdbcType="INTEGER"/>
+    </typeHandlers>
+
+    <environments default="development">
+
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+<mappers>
+    <mapper resource="mapper/DeptMapper.xml"></mapper>
+</mappers>
+</configuration>

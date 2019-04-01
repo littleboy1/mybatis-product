@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lzq.mybatis.dao.EmpMapper">
+
+    <resultMap id="empMap" type="employee">
+        <id column="empno" property="empNo"/>
+        <result column="ename" property="ename"/>
+        <result column="sal" property="sal"/>
+        <association property="dept" javaType="dept">
+            <result column="dept_deptno" property="deptNo"/>
+            <result column="dname" property="dName"/>
+            <result column="loc" property="loc"/>
+        </association>
+    </resultMap>
+
+
+    <select id="empFindById" resultMap="empMap">
+        select dept.deptno dept_deptno,dname,loc,empno,job,sal
+        from dept inner join emp on dept.deptno = emp.deptno
+        where emp.empno = #{empno}
+    </select>
+
+
+ </mapper>
